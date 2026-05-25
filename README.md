@@ -1,35 +1,44 @@
-Pokémon Power Prediction & Analysis
+# Pokémon Power Prediction & Analysis
 
-A complete Machine Learning project built using Pokémon data from the PokéAPI.
-This project performs:
+A complete Machine Learning project built using Pokémon data from the PokéAPI.  
+This project includes:
 
-Data Collection using API
-Data Cleaning
-Feature Engineering
-Exploratory Data Analysis (EDA)
-Regression & Classification Modeling
-Streamlit Deployment
-FastAPI Deployment
-Live Deployments
-Streamlit App (Regression + Classification)
+- Data Collection using API
+- Data Cleaning
+- Feature Engineering
+- Exploratory Data Analysis (EDA)
+- Regression & Classification Models
+- Streamlit Deployment
+- FastAPI Deployment
 
-Live Streamlit App
+---
+
+# Live Deployments
+
+## Streamlit App
+
+https://pokemonanalysis.streamlit.app/
 
 Features:
+- Predict Pokémon Total Power
+- Predict High Power / Low Power Pokémon
 
-Predict Pokémon Total Power
-Predict whether Pokémon is High Power or Low Power
-FastAPI Endpoint
+---
 
-FastAPI Swagger Docs
+## FastAPI Swagger Docs
+
+https://pokemonapi-7m1z.onrender.com/docs
 
 Endpoint:
-
 POST /predict_power
 
 Predicts Pokémon total power using Linear Regression.
 
-Project Structure
+---
+
+# Project Structure
+
+```bash
 pokemon_ml_assessment/
 │
 ├── data/
@@ -48,146 +57,188 @@ pokemon_ml_assessment/
 ├── api.py
 ├── requirements.txt
 └── main.ipynb
-Dataset Source
+```
 
-API Source:
+---
 
-PokéAPI Official Website
+# Dataset Source
+
+API Used:
+https://pokeapi.co/
 
 Data collected using REST API requests in Python.
 
-Features Used
-Feature	Description
-name	Pokémon name
-height	Height
-weight	Weight
-base_experience	Base experience
-hp	Health points
-attack	Attack power
-defense	Defense points
-special_attack	Special attack
-special_defense	Special defense
-speed	Speed
-primary_type	Main Pokémon type
-Feature Engineering
+---
 
-Created:
+# Features Used
 
-Total Power
-total_power=hp+attack+defense+special_attack+special_defense+speed
+| Feature | Description |
+|---|---|
+| name | Pokémon name |
+| height | Height |
+| weight | Weight |
+| base_experience | Base experience |
+| hp | Health points |
+| attack | Attack power |
+| defense | Defense points |
+| special_attack | Special attack |
+| special_defense | Special defense |
+| speed | Speed |
+| primary_type | Main Pokémon type |
 
-total_power=hp+attack+defense+special_attack+special_defense+speed
+---
 
-High Power Classification
+# Feature Engineering
+
+## Total Power
+
+```python
+total_power = hp + attack + defense + special_attack + special_defense + speed
+```
+
+## High Power Classification
 
 Rules:
-
-1 → High Power Pokémon
-0 → Low Power Pokémon
+- 1 → High Power Pokémon
+- 0 → Low Power Pokémon
 
 Threshold applied on total power.
 
-Data Preprocessing
+---
+
+# Data Preprocessing
 
 Performed:
+- Null value handling
+- Duplicate removal
+- Data type conversion
+- One-hot encoding
+- Feature scaling
+- Train-test split
 
-Null value handling
-Duplicate removal
-Data type conversion
-One-hot encoding
-Feature scaling
-Train-test split
-Exploratory Data Analysis (EDA)
+---
 
-Visualizations created:
+# Exploratory Data Analysis (EDA)
 
-Distribution Plot
-Correlation Heatmap
-Pokémon Type Frequency Chart
-Speed vs Attack Scatterplot
-Confusion Matrices
-Regression Comparison Graphs
+Visualizations Created:
+- Distribution Plot
+- Correlation Heatmap
+- Pokémon Type Frequency Chart
+- Speed vs Attack Scatterplot
+- Confusion Matrices
+- Regression Comparison Graphs
 
-Insights extracted:
+Insights:
+- Strong correlations between combat stats
+- Detection of outliers
+- Powerful Pokémon categories
+- Type-based performance patterns
 
-Strong correlations between combat stats
-Detection of outliers
-Powerful Pokémon categories
-Type-based performance patterns
-Machine Learning Models
-Regression Models
-Linear Regression
+---
 
-Target:
+# Machine Learning Models
 
-total_power
-Classification Models
-Logistic Regression
-Decision Tree Classifier
-Tuned Decision Tree Classifier
+## Regression
+
+- Linear Regression
 
 Target:
+- total_power
 
-is_high_power
-Model Evaluation
-Regression Metrics
-R² Score
-RMSE
-MAE
-Classification Metrics
-Accuracy
-Confusion Matrix
-Classification Report
-Streamlit App
+## Classification
 
-The Streamlit application allows users to:
+- Logistic Regression
+- Decision Tree Classifier
+- Tuned Decision Tree Classifier
 
-Enter Pokémon stats
-Predict total power
-Predict power category
+Target:
+- is_high_power
+
+---
+
+# Model Evaluation
+
+## Regression Metrics
+
+- R² Score
+- RMSE
+- MAE
+
+## Classification Metrics
+
+- Accuracy
+- Confusion Matrix
+- Classification Report
+
+---
+
+# Streamlit App
 
 Run locally:
 
+```bash
 streamlit run app.py
-FastAPI Deployment
+```
 
-The FastAPI backend provides prediction endpoint:
+---
 
-POST /predict_power
+# FastAPI
 
 Run locally:
 
+```bash
 uvicorn api:app --reload
+```
 
-Swagger Documentation:
+Swagger Docs:
 
+```bash
 http://127.0.0.1:8000/docs
-Technologies Used
-Python
-Pandas
-NumPy
-Matplotlib
-Seaborn
-Scikit-learn
-Streamlit
-FastAPI
-Uvicorn
-Joblib
-Git & GitHub
-Installation
+```
+
+---
+
+# Technologies Used
+
+- Python
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- Scikit-learn
+- Streamlit
+- FastAPI
+- Uvicorn
+- Joblib
+- Git & GitHub
+
+---
+
+# Installation
 
 Clone repository:
 
+```bash
 git clone https://github.com/Vansh13code/pokemon.git
+```
 
 Go to project folder:
 
+```bash
 cd pokemon
+```
 
 Install dependencies:
 
+```bash
 pip install -r requirements.txt
-API Example Request
+```
+
+---
+
+# API Example Request
+
+```json
 {
   "attack": 90,
   "defense": 80,
@@ -197,12 +248,47 @@ API Example Request
   "base_experience": 250,
   "primary_type": "fire"
 }
-API Example Response
+```
+
+---
+
+# API Example Response
+
+```json
 {
   "predicted_total_power": 512.67
 }
-Deployment Platforms
-Service	Platform
-Streamlit App	Streamlit Community Cloud
-FastAPI API	Render
-Source Code	GitHub
+```
+
+---
+
+# Deployment Platforms
+
+| Service | Platform |
+|---|---|
+| Streamlit App | Streamlit Community Cloud |
+| FastAPI API | Render |
+| Source Code | GitHub |
+
+---
+
+# Future Improvements
+
+- Add more Pokémon generations
+- Hyperparameter tuning
+- Docker deployment
+- CI/CD pipeline
+- Cloud database integration
+- Advanced model optimization
+
+---
+
+# Author
+
+## Vansh Batra
+
+GitHub:
+https://github.com/Vansh13code
+
+Project Repository:
+https://github.com/Vansh13code/pokemon
