@@ -1,12 +1,18 @@
 import streamlit as st
-import joblib
 import pandas as pd
+import joblib
 
-model = joblib.load(
+regression_model = joblib.load(
+    "model/linear_regression.pkl"
+)
+
+classification_model = joblib.load(
     "model/decision_tree.pkl"
 )
 
-st.title("Pokemon Power Prediction")
+st.title("Pokémon Power Prediction App")
+
+st.write("Enter Pokémon stats")
 
 attack = st.number_input("Attack")
 defense = st.number_input("Defense")
@@ -63,15 +69,26 @@ if st.button("Predict"):
         'primary_type_water': 0
     }
 
-    column_name = f'primary_type_{pokemon_type}'
+    type_column = f"primary_type_{pokemon_type}"
 
-    if column_name in input_data:
-        input_data[column_name] = 1
+    if type_column in input_data:
+        input_data[type_column] = 1
 
     input_df = pd.DataFrame([input_data])
 
-    prediction = model.predict(input_df)
+    total_power_prediction = regression_model.predict(
+        input_df
+    )[0]
+
+    class_prediction = classification_model.predict(
+        input_df
+    )[0]
 
     st.success(
-        f"Prediction if high so 1 and low so 0: {prediction[0]}"
+        f"Predicted Total Power: {round(total_power_prediction, 2)}"
     )
+
+    if class_prediction == 1:
+        st.success("High Power Pokémon")
+    else:
+        st.warning("Low Power Pokémon")

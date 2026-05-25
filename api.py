@@ -3,9 +3,9 @@ from pydantic import BaseModel
 import pandas as pd
 import joblib
 
-
-model = joblib.load("model/decision_tree.pkl")
-
+model = joblib.load(
+    "model/linear_regression.pkl"
+)
 
 app = FastAPI()
 
@@ -24,14 +24,13 @@ class PokemonInput(BaseModel):
 def home():
 
     return {
-        "message": "Pokemon Power Prediction API"
+        "message": "Pokemon Total Power Prediction API"
     }
 
 
 @app.post("/predict_power")
 def predict_power(data: PokemonInput):
 
-    
     input_data = {
         'attack': data.attack,
         'defense': data.defense,
@@ -64,8 +63,8 @@ def predict_power(data: PokemonInput):
 
     input_df = pd.DataFrame([input_data])
 
-    prediction = model.predict(input_df)
+    prediction = model.predict(input_df)[0]
 
     return {
-        "predicted_power_class": int(prediction[0])
+        "predicted_total_power": round(float(prediction), 2)
     }
