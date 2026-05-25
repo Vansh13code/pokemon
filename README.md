@@ -286,6 +286,7 @@ pip install -r requirements.txt
 # Author
 
 ## Vansh Batra
+## Animesh Garg
 
 GitHub:
 https://github.com/Vansh13code
