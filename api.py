@@ -7,6 +7,11 @@ model = joblib.load(
     "model/linear_regression.pkl"
 )
 
+columns = joblib.load(
+    "model/model_columns.pkl"
+)
+
+
 app = FastAPI()
 
 class PokemonInput(BaseModel):
@@ -62,6 +67,11 @@ def predict_power(data: PokemonInput):
         input_data[type_column] = 1
 
     input_df = pd.DataFrame([input_data])
+
+    input_df = input_df.reindex(
+        columns=columns,
+        fill_value=0
+    )
 
     prediction = model.predict(input_df)[0]
 
