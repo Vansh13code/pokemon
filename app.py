@@ -10,6 +10,12 @@ classification_model = joblib.load(
     "model/decision_tree.pkl"
 )
 
+
+columns = joblib.load(
+    "model/model_columns.pkl"
+)
+
+
 st.title("Pokémon Power Prediction App")
 
 st.write("Enter Pokémon stats")
@@ -41,6 +47,7 @@ pokemon_type = st.selectbox(
         "water"
     ]
 )
+
 
 if st.button("Predict"):
 
@@ -76,14 +83,25 @@ if st.button("Predict"):
 
     input_df = pd.DataFrame([input_data])
 
+    input_df = input_df.reindex(
+        columns=columns,
+        fill_value=0
+    )
+
+    
+
     total_power_prediction = regression_model.predict(
         input_df
     )[0]
 
+   
+   
+   
     class_prediction = classification_model.predict(
         input_df
     )[0]
 
+    
     st.success(
         f"Predicted Total Power: {round(total_power_prediction, 2)}"
     )
